@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>ShowAll</title>
+</head>
+<body bgcolor="cyan">
+
+<h3 align="center" >Show All User Details</h3><hr>
+
+<table border="1" align="center">
+<tr>
+	<th>User ID</th>
+	<th>Name</th>
+	<th>Email</th>
+	<th>Password</th>
+	<th>Mobile Number</th>
+	<th>Gender</th>
+	<th>Dob</th>
+	<th>Address</th>
+	<th>Operations</th>
+</tr>
+
+<tr th:each="ob:${showall}">
+	<td th:text="${ob.userId}"></td>
+	<td th:text="${ob.fullName}"></td>
+	<td th:text="${ob.emailId}"></td>
+	<td th:text="${ob.password}"></td>
+	<td th:text="${ob.mobileNumber}"></td>
+	<td th:text="${ob.gender}"></td>
+	<td th:text="${ob.dob}"></td>
+	<td th:text="${ob.address}"></td>	
+	<td>
+	
+	<a class="btn btn-danger btn-sm" th:href="@{/regForm/delete(userId=${ob.userId})}" role="button">Delete</a>||
+	<a class="btn btn-primary btn-sm" th:href="@{/regForm/edit(userId=${ob.userId})}" role="button">Edit</a>
+	
+	</td>
+</tr>
+
+</table>
+<hr>
+
+ 
+
+ 
+<span th:if="${page.hasPrevious()}">
+
+		<a th:href="@{/regForm/showall(page=${page.number-1})}">Previous</a> 
+</span>
+	 <th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">
+	
+		<a th:href="@{/regForm/showall(page=${i})}">[[${i}+1]]</a> 
+		
+	</th:block>
+	
+	<span th:if="${page.hasNext()}">
+
+		<a th:href="@{/regForm/showall(page=${page.number+1})}">Next</a> 
+</span>
+
+
+</body>
+</html>
